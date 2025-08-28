@@ -1,0 +1,35 @@
+[
+    {
+        "id": "CE101",
+        "title": "Thesis in Artificial Intelligence",
+        "professor_id": "p201",
+        "capacity": 2,
+        "year": 1404,
+        "semester": "First",
+        "units": 6,
+        "session_numbers": 10,
+        "resources": "AI Book, Python Libraries"
+    },
+    {
+        "id": "CE102",
+        "title": "Thesis in Software Engineering",
+        "professor_id": "p202",
+        "capacity": 5,
+        "year": 1404,
+        "semester": "First",
+        "units": 6,
+        "session_numbers": 10,
+        "resources": "SE Book, Design Patterns"
+    },
+    {
+        "id": "EE201",
+        "title": "Thesis in Control Systems",
+        "professor_id": "p301",
+        "capacity": 4,
+        "year": 1404,
+        "semester": "First",
+        "units": 6,
+        "session_numbers": 12,
+        "resources": "Control Systems Book"
+    }
+]

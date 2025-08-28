@@ -1,0 +1,43 @@
+[
+    {
+        "id": "s101",
+        "name": "Ali Ahmadi",
+        "password": "pass1",
+        "role": "student",
+        "major": "Computer Engineering"
+    },
+    {
+        "id": "s102",
+        "name": "Sara Mohammadi",
+        "password": "pass2",
+        "role": "student",
+        "major": "Electrical Engineering"
+    },
+    {
+        "id": "p201",
+        "name": "Dr. Reza Kiani",
+        "password": "prof1",
+        "role": "professor",
+        "major": "Computer Engineering",
+        "mentoring_capacity": 5,
+        "examination_capacity": 10
+    },
+    {
+        "id": "p202",
+        "name": "Dr. Maryam Salimi",
+        "password": "prof2",
+        "role": "professor",
+        "major": "Computer Engineering",
+        "mentoring_capacity": 5,
+        "examination_capacity": 10
+    },
+    {
+        "id": "p301",
+        "name": "Dr. Javad Hashemi",
+        "password": "prof3",
+        "role": "professor",
+        "major": "Electrical Engineering",
+        "mentoring_capacity": 5,
+        "examination_capacity": 10
+    }
+]
