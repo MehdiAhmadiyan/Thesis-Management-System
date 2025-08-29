@@ -1,15 +1,149 @@
-University Thesis Management SystemA comprehensive, command-line interface (CLI) application built with Python to digitize and manage the entire lifecycle of a university thesis. This system provides a streamlined, role-based workflow for both students and professors, automating requests, approvals, scheduling, and archival.📋 Table of ContentsOverviewSystem WorkflowFeaturesProject-StructureCore-Logic-and-AlgorithmsTechnologies-UsedHow-to-RunFuture-ImprovementsContributingLicense📜 OverviewIn many academic institutions, the process of managing undergraduate or postgraduate theses can be manual and cumbersome, involving paperwork, emails, and manual tracking. This project aims to solve that problem by providing a centralized, command-line system that simulates a real-world thesis management portal.The application uses a modular architecture and a simple JSON-based database, making it lightweight, portable, and easy to understand. It serves as an excellent example of object-oriented programming (OOP) principles and file-based data management in Python.🔄 System WorkflowThe application follows a logical progression that mirrors a real academic workflow:Course Offering: Professors offer thesis courses, which are stored in the database with specific capacities.Student Request: A student logs in, browses available courses in their major, and submits a request for a thesis course.Professor Review: The supervising professor reviews the request. They can approve it (if they have capacity) or reject it.Thesis Work Period: Once approved, the student works on their thesis. The system enforces a minimum time period (e.g., 90 days) before a defense can be requested.Defense Request: The student submits their final thesis files (PDF, etc.) and requests a defense session.Defense Management: The professor schedules the defense, assigning an internal (same major) and external (different major) examiner from available faculty.Grading: After the defense, the mentor and both examiners submit their grades independently.Finalization: Once all three grades are submitted, the system calculates the average, determines the final result, and archives the thesis. The professors' capacities are then updated.✨ FeaturesThe system offers distinct functionalities based on user roles:🎓 For StudentsRequest a Thesis Course: Intelligently browses and displays available thesis courses, filtered by the student's major and the professor's remaining capacity.View Thesis Status: Provides real-time status updates for the entire thesis lifecycle: pending_approval, approved, rejected, defense_approval, defense_scheduled, finished.Submit for Defense: A guided process to upload thesis files and submit a formal defense request, available only after the minimum work period has passed since approval.Search Theses: A powerful search tool to query the archive of completed theses by title, author, mentor, keywords, defense year, or examiner name.Change Password: Securely update the account password.👨‍🏫 For ProfessorsReview Thesis Requests: A dashboard to view and manage incoming thesis requests. Approve or reject them based on current mentoring capacity.Manage Defense Requests: Review defense submissions, schedule a date, and assign internal and external examiners from a filtered list of eligible professors.Submit Grades: A dedicated interface to enter grades for theses you have mentored or examined. The system prevents duplicate submissions.Capacity Management: The system automatically tracks and updates mentoring and examination capacities, ensuring professors are not over-assigned.Search Theses: Access the full archive of completed theses with detailed information.Change Password: Update the account password.📂 Project StructureThe project is organized into a clean and modular structure to separate concerns, promoting maintainability and scalability..
-├── data/
-│   ├── users.json         # Stores user data (students and professors)
-│   ├── courses.json       # Stores available thesis courses
-│   └── theses.json        # Stores all thesis records
-├── src/
-│   ├── models.py          # Contains class definitions (User, Student, Thesis, etc.)
-│   ├── functions.py       # Handles data access (read/write to JSON files)
-│   └── services.py        # Core application logic and business rules
-└── main.py                # Main entry point of the application (CLI)
-🧠 Core Logic and AlgorithmsThe system's functionality is driven by several key algorithms:State Management Algorithm: The core of the system is a finite state machine that manages the status of each thesis. Each key action (e.g., request_thesis, approve_request, schedule_defense) transitions the thesis object to a new state, unlocking new available actions.Role-Based Access Control (RBAC): After login, the system identifies the user's role ("student" or "professor") and directs them to a dedicated menu, ensuring that users can only access functionalities permitted for their role.Capacity Management Logic: The system automatically decrements a professor's mentoring_capacity upon approving a thesis and increments it back upon successful completion, preventing over-allocation. A similar logic applies to examination_capacity.Dynamic Filtering: The system uses dynamic filtering in multiple areas, such as showing students only courses in their major or showing professors only eligible examiners (based on major and capacity) for a defense committee.🛠️ Technologies UsedThis project is built entirely with standard Python libraries, requiring no external packages or dependencies.Language: Python 3.xStandard Libraries:json: For data serialization and persistence in .json files.os: For interacting with the file system (e.g., checking paths, creating directories).shutil: For high-level file operations (e.g., copying uploaded files).datetime: For handling dates and times, crucial for request timestamps and defense deadlines.🚀 How to RunTo get the application running locally, follow these simple steps.PrerequisitesPython 3.6 or higher installed on your system.Installation & ExecutionClone the repository:git clone https://github.com/your-username/university-thesis-system.git
-cd university-thesis-system
-Create necessary directories (if they don't exist):The application will try to save uploaded files. Create the files directory to prevent errors.mkdir -p files/pdfs files/images
-Run the application:Execute the main.py file from your terminal.python main.py
-Log in:The application will prompt you for a user ID and password. You can use the sample data from data/users.json.Sample Student Login:User ID: s101Password: pass1Sample Professor Login:User ID: p201Password: prof1Use the Menu:After a successful login, a menu with available options will be displayed. Simply enter the number corresponding to the action you wish to perform.📈 Future ImprovementsThis project has a solid foundation that can be extended with new features:Web Interface: Develop a web-based UI using a framework like Flask or Django for a more user-friendly experience.Database Integration: Replace the JSON-based storage with a robust database system like SQLite or PostgreSQL for better scalability and data integrity.Notifications: Implement an email or in-app notification system to alert users of status changes (e.g., when a thesis request is approved).Unit Testing: Add a comprehensive suite of unit tests to ensure code reliability and prevent regressions.Enhanced Reporting: Add features for generating reports, such as the number of theses supervised by a professor or the average completion time for a thesis.🤝 ContributingContributions are welcome! If you have ideas for improvements or find a bug, please feel free to:Fork the repository.Create a new branch (git checkout -b feature/YourAmazingFeature).Commit your changes (git commit -m 'Add some amazing feature').Push to the branch (git push origin feature/YourAmazingFeature).Open a Pull Request.📄 LicenseThis project is licensed under the MIT License. See the LICENSE file for more details.
+# Thesis Management System
+
+A Thesis Management System built with pure Python that helps manage students, courses, and thesis projects efficiently.  
+It provides a structured way to store, retrieve, and manage data related to academic theses, users, and associated files.
+
+---
+
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Data Files](#data-files)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [How to Run](#how-to-run)
+- [Configuration](#configuration)
+- [Development Notes](#development-notes)
+- [Future Improvements](#future-improvements)
+- [Contributing](#contributing)
+- [Contact](#contact)
+
+---
+
+## Overview
+This project is designed to support academic institutions in managing the lifecycle of theses.  
+It provides a minimal yet extendable backend for handling:
+- Students and their details
+- Courses offered
+- Thesis records
+- File management (PDFs, images, etc.)
+
+The project uses JSON files as the database, making it lightweight and easy to set up without external services.
+
+---
+
+## Features
+- User management stored in `users.json`
+- Course management via `courses.json`
+- Thesis records handled in `theses.json`
+- File storage for PDFs and images
+- Clear separation of code modules for models, services, and helpers
+- Pure Python with no external dependencies
+
+---
+
+## Project Structure
+```
+thesis_management_system/
+│
+├── main.py                 # Entry point of the application
+│
+├── data/                   # JSON-based "database"
+│   ├── courses.json
+│   ├── theses.json
+│   └── users.json
+│
+├── files/                  # Supporting documents
+│   ├── images/
+│   └── pdfs/
+│
+└── src/                    # Core source code
+    ├── functions.py        # Utility functions
+    ├── models.py           # Data models
+    └── services.py         # Business logic
+```
+
+---
+
+## Data Files
+The project uses JSON files located in the `data/` folder:
+- `users.json`   — user records (students, supervisors, admins)
+- `courses.json` — course data
+- `theses.json`  — thesis records
+
+---
+
+## Requirements
+- Python 3.8 or newer
+- Terminal or command prompt
+- Read/write access to the project directory
+
+No external packages are required.
+
+---
+
+## Installation
+1. Clone the repository
+```
+git clone https://github.com/MehdiAhmadiyan/Thesis-Management-System.git
+```
+
+2. Change into the project directory
+```
+cd Thesis-Management-System
+```
+
+3. Verify Python version
+```
+python --version
+```
+
+---
+
+## How to Run
+Run from the project root:
+```
+python main.py
+```
+
+---
+
+## Configuration
+- Data files are located in `data/`
+- Supporting files are stored under `files/pdfs/` and `files/images/`
+- Update file paths in `main.py` or `src/` if the structure is changed
+
+---
+
+## Development Notes
+- `models.py` defines Python classes and data models
+- `services.py` contains operations and business logic
+- `functions.py` contains helper utilities
+- Run the program from the project root so paths resolve correctly
+
+---
+
+## Future Improvements
+- Use a database backend instead of JSON
+- Add authentication and roles
+- Create a web or GUI interface
+- Add JSON schema validation
+- Implement reporting (PDF/CSV)
+- Add automated testing
+
+---
+
+## Contributing
+1. Fork the repository  
+2. Create a feature branch  
+3. Commit changes with clear messages  
+4. Open a pull request  
+
+---
+
+## Contact
+Author: Mehdi Ahmadiyan  
+GitHub: https://github.com/MehdiAhmadiyan
+
+---
