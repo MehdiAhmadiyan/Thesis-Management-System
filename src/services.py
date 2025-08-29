@@ -122,11 +122,11 @@ def request_defense(student, all_theses):
                 if not pdf_path:
                     return
                 
-                first_image_path = upload_file("Please enter the path of your first image: ", ".jpeg", image_destination)
+                first_image_path = upload_file("Please enter the path of your first image: ", ".jpg", image_destination)
                 if not first_image_path:
                     return
                 
-                second_image_path = upload_file("Please enter the path of your last image: ", ".jpeg", image_destination)
+                second_image_path = upload_file("Please enter the path of your last image: ", ".jpg", image_destination)
                 if not second_image_path:
                     return
                 
